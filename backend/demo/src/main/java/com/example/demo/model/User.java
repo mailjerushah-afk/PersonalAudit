@@ -13,5 +13,6 @@ public class User implements Serializable {
 
     private String email;
     private String fullName;
+    private String role;
 
 }
