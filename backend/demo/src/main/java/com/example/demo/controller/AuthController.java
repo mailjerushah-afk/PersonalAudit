@@ -1,3 +1,11 @@
+package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.security.JwtUtil;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
