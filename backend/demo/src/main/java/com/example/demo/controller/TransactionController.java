@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.*;
+import java.math.BigDecimal;
+
 import com.example.demo.model.Transaction;
-import com.example.demo.repository.TransactionRepository; 
+import com.example.demo.repository.TransactionRepository;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -15,10 +17,10 @@ public class TransactionController {
     }
 
     @GetMapping("/{userId}/balance")
-    public Double getBalance(@PathVariable Long userId) {
+    public BigDecimal getBalance(@PathVariable Long userId) {
         return transactionRepository.findByUserId(userId)
                 .stream()
-                .mapToDouble(Transaction::getAmount)
-                .sum();
+                .map(Transaction::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

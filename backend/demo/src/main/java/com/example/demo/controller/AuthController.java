@@ -34,4 +34,19 @@ public class AuthController {
 
         return jwtUtil.generateToken(user.getEmail());
     }
+    @PostMapping("/register")
+public String register(@RequestBody User request) {
+
+    // hash password
+    request.setPassword(passwordEncoder.encode(request.getPassword()));
+
+    // default role (if you have roles)
+    if (request.getRole() == null) {
+        request.setRole("USER");
+    }
+
+    userRepository.save(request);
+
+    return "User registered successfully";
+}
 }
