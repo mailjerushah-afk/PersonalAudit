@@ -1,7 +1,7 @@
 package com.example.demo.dto;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrNegative;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 
@@ -11,7 +11,7 @@ public record TransactionRequest(
         Long userId,
 
         @NotNull
-        @PositiveOrNegative
+        @PositiveOrZero
         BigDecimal amount,
 
         String description
