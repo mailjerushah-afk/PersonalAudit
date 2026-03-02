@@ -33,23 +33,87 @@
 // }
 
 // export default App
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// function Login() {
+//   return <h1>Login</h1>;
+// }
+// import { useEffect } from "react";
+// import api from "./api/api";
+// function Dashboard() {
+
+//   useEffect(() => {
+//     api.get("/users")
+//       .then(res => console.log(res.data))
+//       .catch(err => console.error(err));
+//   }, []);
+
+//   return <h1>Dashboard</h1>;
+// }
+
+// function App() {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         <Route path="/" element={<Login />} />
+//         <Route path="/dashboard" element={<Dashboard />} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// }
+
+// export default App;
+
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "./api/api";
+
+/* ---------------- LOGIN ---------------- */
 
 function Login() {
-  return <h1>Login</h1>;
+  return (
+    <div>
+      <h1>Login (Security Disabled)</h1>
+      <p>JWT is currently disabled in backend.</p>
+
+      <Link to="/dashboard">
+        <button>Go to Dashboard</button>
+      </Link>
+    </div>
+  );
 }
-import { useEffect } from "react";
-import api from "./api/api";
+
+/* ---------------- DASHBOARD ---------------- */
+
 function Dashboard() {
+
+  const [users, setUsers] = useState<any[]>([]);
 
   useEffect(() => {
     api.get("/users")
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data);
+        setUsers(res.data);
+      })
       .catch(err => console.error(err));
   }, []);
 
-  return <h1>Dashboard</h1>;
+  return (
+    <div>
+      <h1>Dashboard</h1>
+
+      {users.length === 0 && <p>No users yet.</p>}
+
+      {users.map((user, index) => (
+        <div key={index}>
+          {user.fullName} ({user.email})
+        </div>
+      ))}
+    </div>
+  );
 }
+
+/* ---------------- APP ---------------- */
 
 function App() {
   return (
