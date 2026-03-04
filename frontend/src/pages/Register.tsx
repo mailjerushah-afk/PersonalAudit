@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
-import { User } from "../types/User";
+//import type { User } from "../types/User";
+import type { UserRequest } from "../types/UserRequest";
 
 export default function Register() {
 
@@ -13,9 +14,9 @@ export default function Register() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newUser: User = {
-      email,
-      fullName
+    const newUser: UserRequest = {
+        email,
+        fullName
     };
 
     try {
