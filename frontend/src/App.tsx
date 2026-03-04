@@ -67,6 +67,10 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "./api/api";
+import type { User } from "./types/User";
+//import Login from "./pages/Login";
+import Register from "./pages/Register";
+//import Dashboard from "./pages/Dashboard";
 
 /* ---------------- LOGIN ---------------- */
 
@@ -79,6 +83,11 @@ function Login() {
       <Link to="/dashboard">
         <button>Go to Dashboard</button>
       </Link>
+
+      <p>Don't have an account?</p>
+      <Link to="/register">
+        <button>Register account</button>
+      </Link>
     </div>
   );
 }
@@ -87,7 +96,7 @@ function Login() {
 
 function Dashboard() {
 
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     api.get("/users")
@@ -117,12 +126,13 @@ function Dashboard() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Login />} />
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/register" element={<Register />} />
+  </Routes>
+</BrowserRouter>
   );
 }
 
