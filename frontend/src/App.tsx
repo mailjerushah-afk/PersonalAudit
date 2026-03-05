@@ -64,63 +64,60 @@
 
 // export default App;
 
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import api from "./api/api";
-import type { User } from "./types/User";
-//import Login from "./pages/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
 import Register from "./pages/Register";
-//import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 
 /* ---------------- LOGIN ---------------- */
 
-function Login() {
-  return (
-    <div>
-      <h1>Login (Security Disabled)</h1>
-      <p>JWT is currently disabled in backend.</p>
+// function Login() {
+//   return (
+//     <div>
+//       <h1>Login (Security Disabled)</h1>
+//       <p>JWT is currently disabled in backend.</p>
 
-      <Link to="/dashboard">
-        <button>Go to Dashboard</button>
-      </Link>
+//       <Link to="/dashboard">
+//         <button>Go to Dashboard</button>
+//       </Link>
 
-      <p>Don't have an account?</p>
-      <Link to="/register">
-        <button>Register account</button>
-      </Link>
-    </div>
-  );
-}
+//       <p>Don't have an account?</p>
+//       <Link to="/register">
+//         <button>Register account</button>
+//       </Link>
+//     </div>
+//   );
+// }
 
 /* ---------------- DASHBOARD ---------------- */
 
-function Dashboard() {
+// function Dashboard() {
 
-  const [users, setUsers] = useState<User[]>([]);
+//   const [users, setUsers] = useState<User[]>([]);
 
-  useEffect(() => {
-    api.get("/users")
-      .then(res => {
-        console.log(res.data);
-        setUsers(res.data);
-      })
-      .catch(err => console.error(err));
-  }, []);
+//   useEffect(() => {
+//     api.get("/users")
+//       .then(res => {
+//         console.log(res.data);
+//         setUsers(res.data);
+//       })
+//       .catch(err => console.error(err));
+//   }, []);
 
-  return (
-    <div>
-      <h1>Dashboard</h1>
+//   return (
+//     <div>
+//       <h1>Dashboard</h1>
 
-      {users.length === 0 && <p>No users yet.</p>}
+//       {users.length === 0 && <p>No users yet.</p>}
 
-      {users.map((user, index) => (
-        <div key={index}>
-          {user.fullName} ({user.email})
-        </div>
-      ))}
-    </div>
-  );
-}
+//       {users.map((user, index) => (
+//         <div key={index}>
+//           {user.fullName} ({user.email})
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
 
 /* ---------------- APP ---------------- */
 
