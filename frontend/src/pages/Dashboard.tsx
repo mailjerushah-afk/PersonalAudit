@@ -15,21 +15,24 @@ export default function Dashboard() {
 
   return (
     <div style={styles.page}>
-      <div style={styles.cardLarge}>
-        <h1 style={styles.title}>Dashboard</h1>
+      <div style={styles.container}>
+        
+        <div style={styles.header}>
+          <h1 style={styles.title}>Dashboard</h1>
 
-        <button
-          style={styles.secondaryButton}
-          onClick={() => navigate("/")}
-        >
-          Logout
-        </button>
+          <button
+            style={styles.logoutButton}
+            onClick={() => navigate("/")}
+          >
+            Logout
+          </button>
+        </div>
 
         <h2 style={styles.sectionTitle}>Registered Users</h2>
 
         {users.length === 0 && <p>No users yet.</p>}
 
-        <div style={styles.userList}>
+        <div style={styles.userGrid}>
           {users.map(user => (
             <div key={user.id} style={styles.userCard}>
               <strong>{user.fullName}</strong>
@@ -37,94 +40,67 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
 }
+
 const styles = {
   page: {
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "20px",
+    //minHeight: "100vh",
     background: "linear-gradient(135deg, #e0f2ff, #b3e5fc)",
+    padding: "40px",
     fontFamily: "Arial, sans-serif",
   } as React.CSSProperties,
 
-  card: {
-    backgroundColor: "white",
-    padding: "clamp(30px, 5vw, 60px)",
-    borderRadius: "20px",
-    boxShadow: "0 15px 40px rgba(0,0,0,0.08)",
-    width: "100%",
-    maxWidth: "420px",
-    textAlign: "center",
-  } as React.CSSProperties,
+ container: {
+  width: "100%",
+  backgroundColor: "white",
+  padding: "40px",
+  borderRadius: "20px",
+} as React.CSSProperties,
 
-  cardLarge: {
-    backgroundColor: "white",
-    padding: "clamp(30px, 5vw, 60px)",
-    borderRadius: "20px",
-    boxShadow: "0 15px 40px rgba(0,0,0,0.08)",
-    width: "100%",
-    maxWidth: "700px",
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "30px",
   } as React.CSSProperties,
 
   title: {
     color: "#0277bd",
-    marginBottom: "20px",
+    margin: 0,
   } as React.CSSProperties,
 
-  sectionTitle: {
-    marginTop: "30px",
-    marginBottom: "20px",
-    color: "#444",
-  } as React.CSSProperties,
-
-  input: {
-    width: "100%",
-    padding: "12px",
-    marginBottom: "16px",
+  logoutButton: {
+    padding: "10px 18px",
     borderRadius: "8px",
-    border: "1px solid #ddd",
-    fontSize: "14px",
-  } as React.CSSProperties,
-
-  primaryButton: {
-    width: "100%",
-    padding: "14px",
-    borderRadius: "10px",
-    border: "none",
-    backgroundColor: "#0288d1",
-    color: "white",
-    fontWeight: 600,
-    cursor: "pointer",
-    marginBottom: "20px",
-  } as React.CSSProperties,
-
-  secondaryButton: {
-    width: "100%",
-    padding: "12px",
-    borderRadius: "10px",
     border: "2px solid #0288d1",
     backgroundColor: "white",
     color: "#0288d1",
     fontWeight: 600,
     cursor: "pointer",
-    marginBottom: "10px",
   } as React.CSSProperties,
 
-  userList: {
-    marginTop: "20px",
+  sectionTitle: {
+    marginBottom: "100px",
+    color: "#444",
+  } as React.CSSProperties,
+
+  userGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gap: "20px",
   } as React.CSSProperties,
 
   userCard: {
-    padding: "15px",
-    borderRadius: "10px",
+    padding: "20px",
+    borderRadius: "12px",
     backgroundColor: "#f5fbff",
-    marginBottom: "12px",
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    gap: "6px",
+    boxShadow: "0 5px 12px rgba(0,0,0,0.05)",
   } as React.CSSProperties,
 };
