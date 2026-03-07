@@ -102,7 +102,7 @@ export const styles = {
     padding: "20px",
     borderRadius: "12px",
     backgroundColor: "#f5fbff",
-    display: "flex",
+    //display: "flex",
     flexDirection: "column",
     gap: "6px",
     boxShadow: "0 5px 12px rgba(0,0,0,0.05)",
@@ -134,4 +134,20 @@ export const styles = {
     marginBottom: "100px",
     color: "#444",
   } as React.CSSProperties,
+
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+    marginBottom: "30px"
+  } as React.CSSProperties,
+
+   button: {
+    background: "#2563eb",
+    border: "none",
+    padding: "10px 18px",
+    color: "white",
+    borderRadius: "6px",
+    cursor: "pointer"
+  } as React.CSSProperties
+
 };
