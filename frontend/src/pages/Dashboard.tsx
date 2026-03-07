@@ -1,33 +1,187 @@
+// import { useEffect, useState } from "react";
+// import api from "../api/api";
+// import type { User } from "../types/User";
+// import { useNavigate } from "react-router-dom";
+// import { styles } from "../styles/GlobalStyles";
+
+// export default function Dashboard() {
+//   const [users, setUsers] = useState<User[]>([]);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     api.get<User[]>("/users")
+//       .then(res => setUsers(res.data))
+//       .catch(err => console.error(err));
+//   }, []);
+
+//   return (
+//     <div style={styles.page}>
+//       <div style={styles.container}>
+        
+//         <div style={styles.header}>
+//           <h1 style={styles.title}>Dashboard</h1>
+
+//           <button
+//             style={styles.logoutButton}
+//             onClick={() => navigate("/")}
+//           >
+//             Logout
+//           </button>
+//         </div>
+
+//         <h2 style={styles.sectionTitle}>Registered Users</h2>
+
+//         {users.length === 0 && <p>No users yet.</p>}
+
+//         <div style={styles.userGrid}>
+//           {users.map(user => (
+//             <div key={user.id} style={styles.userCard}>
+//               <strong>{user.fullName}</strong>
+//               <span>{user.email}</span>
+//             </div>
+//           ))}
+//         </div>
+
+//       </div>
+//     </div>
+//   );
+// }
+
 import { useEffect, useState } from "react";
 import api from "../api/api";
 import type { User } from "../types/User";
 import { useNavigate } from "react-router-dom";
+import { styles } from "../styles/GlobalStyles";
+
+type Transaction = {
+  id: number;
+  amount: number;
+  description: string;
+  timestamp: string;
+};
 
 export default function Dashboard() {
+
   const [users, setUsers] = useState<User[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const loadData = () => {
     api.get<User[]>("/users")
       .then(res => setUsers(res.data))
       .catch(err => console.error(err));
+
+    api.get<Transaction[]>("/transactions")
+      .then(res => setTransactions(res.data))
+      .catch(err => console.error(err));
+  };
+
+  useEffect(() => {
+    loadData();
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
+  // Ledger calculations
+  const totalBalance = transactions.reduce((sum, tx) => sum + tx.amount, 0);
+
+  const totalCredits = transactions
+    .filter(tx => tx.amount > 0)
+    .reduce((sum, tx) => sum + tx.amount, 0);
+
+  const totalDebits = transactions
+    .filter(tx => tx.amount < 0)
+    .reduce((sum, tx) => sum + tx.amount, 0);
 
   return (
     <div style={styles.page}>
       <div style={styles.container}>
-        
+
+        {/* HEADER */}
         <div style={styles.header}>
-          <h1 style={styles.title}>Dashboard</h1>
+          <h1 style={styles.title}>Digital Ledger Dashboard</h1>
 
           <button
             style={styles.logoutButton}
-            onClick={() => navigate("/")}
+            onClick={logout}
           >
             Logout
           </button>
         </div>
 
+
+        {/* LEDGER SUMMARY */}
+        <h2 style={styles.sectionTitle}>Account Summary</h2>
+
+        <div style={{display:"flex", gap:"20px", marginBottom:"30px"}}>
+
+          <div style={styles.card}>
+            <h3>Balance</h3>
+            <p style={{fontSize:"22px", fontWeight:"bold"}}>
+              ${totalBalance.toFixed(2)}
+            </p>
+          </div>
+
+          <div style={styles.card}>
+            <h3>Total Credits</h3>
+            <p style={{color:"green", fontWeight:"bold"}}>
+              +${totalCredits.toFixed(2)}
+            </p>
+          </div>
+
+          <div style={styles.card}>
+            <h3>Total Debits</h3>
+            <p style={{color:"red", fontWeight:"bold"}}>
+              ${totalDebits.toFixed(2)}
+            </p>
+          </div>
+
+        </div>
+
+
+        {/* TRANSACTION LEDGER */}
+        <h2 style={styles.sectionTitle}>Transaction Ledger</h2>
+
+        {transactions.length === 0 && <p>No transactions yet.</p>}
+
+        {transactions.length > 0 && (
+          <table style={styles.table}>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {transactions.map(tx => (
+                <tr key={tx.id}>
+                  <td>{tx.id}</td>
+                  <td>{tx.description}</td>
+
+                  <td style={{
+                    color: tx.amount > 0 ? "green" : "red",
+                    fontWeight: "bold"
+                  }}>
+                    {tx.amount > 0 ? "+" : ""}${tx.amount}
+                  </td>
+
+                  <td>
+                    {new Date(tx.timestamp).toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+
+        {/* USERS */}
         <h2 style={styles.sectionTitle}>Registered Users</h2>
 
         {users.length === 0 && <p>No users yet.</p>}
@@ -41,66 +195,15 @@ export default function Dashboard() {
           ))}
         </div>
 
+
+        {/* REFRESH BUTTON */}
+        <div style={{marginTop:"30px"}}>
+          <button style={styles.button} onClick={loadData}>
+            Refresh Data
+          </button>
+        </div>
+
       </div>
     </div>
   );
 }
-
-const styles = {
-  page: {
-    //minHeight: "100vh",
-    background: "linear-gradient(135deg, #e0f2ff, #b3e5fc)",
-    padding: "40px",
-    fontFamily: "Arial, sans-serif",
-  } as React.CSSProperties,
-
- container: {
-  width: "100%",
-  backgroundColor: "white",
-  padding: "40px",
-  borderRadius: "20px",
-} as React.CSSProperties,
-
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "30px",
-  } as React.CSSProperties,
-
-  title: {
-    color: "#0277bd",
-    margin: 0,
-  } as React.CSSProperties,
-
-  logoutButton: {
-    padding: "10px 18px",
-    borderRadius: "8px",
-    border: "2px solid #0288d1",
-    backgroundColor: "white",
-    color: "#0288d1",
-    fontWeight: 600,
-    cursor: "pointer",
-  } as React.CSSProperties,
-
-  sectionTitle: {
-    marginBottom: "100px",
-    color: "#444",
-  } as React.CSSProperties,
-
-  userGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: "20px",
-  } as React.CSSProperties,
-
-  userCard: {
-    padding: "20px",
-    borderRadius: "12px",
-    backgroundColor: "#f5fbff",
-    display: "flex",
-    flexDirection: "column",
-    gap: "6px",
-    boxShadow: "0 5px 12px rgba(0,0,0,0.05)",
-  } as React.CSSProperties,
-};

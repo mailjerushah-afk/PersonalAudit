@@ -23,7 +23,7 @@ public class Transaction {
 
     private LocalDateTime timestamp;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "user_id")
     private User user;
 
