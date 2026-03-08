@@ -8,11 +8,12 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const navigate = useNavigate();
+  const [password, setPassword] = useState("");
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newUser: UserRequest = { email, fullName };
+    const newUser: UserRequest = { email, fullName, password };
 
     try {
       await api.post("/users", newUser);
@@ -43,6 +44,13 @@ export default function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <input
+            style={styles.input}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+        />
 
           <button style={styles.primaryButton} type="submit">
             Register
