@@ -1,51 +1,3 @@
-// import { useEffect, useState } from "react";
-// import api from "../api/api";
-// import type { User } from "../types/User";
-// import { useNavigate } from "react-router-dom";
-// import { styles } from "../styles/GlobalStyles";
-
-// export default function Dashboard() {
-//   const [users, setUsers] = useState<User[]>([]);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     api.get<User[]>("/users")
-//       .then(res => setUsers(res.data))
-//       .catch(err => console.error(err));
-//   }, []);
-
-//   return (
-//     <div style={styles.page}>
-//       <div style={styles.container}>
-        
-//         <div style={styles.header}>
-//           <h1 style={styles.title}>Dashboard</h1>
-
-//           <button
-//             style={styles.logoutButton}
-//             onClick={() => navigate("/")}
-//           >
-//             Logout
-//           </button>
-//         </div>
-
-//         <h2 style={styles.sectionTitle}>Registered Users</h2>
-
-//         {users.length === 0 && <p>No users yet.</p>}
-
-//         <div style={styles.userGrid}>
-//           {users.map(user => (
-//             <div key={user.id} style={styles.userCard}>
-//               <strong>{user.fullName}</strong>
-//               <span>{user.email}</span>
-//             </div>
-//           ))}
-//         </div>
-
-//       </div>
-//     </div>
-//   );
-// }
 
 import { useEffect, useState } from "react";
 import api from "../api/api";
@@ -116,7 +68,12 @@ export default function Dashboard() {
         {/* LEDGER SUMMARY */}
         <h2 style={styles.sectionTitle}>Account Summary</h2>
 
-        <div style={{display:"flex", gap:"20px", marginBottom:"30px"}}>
+        <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "20px",
+            marginBottom: "30px"
+        }}>
 
           <div style={styles.card}>
             <h3>Balance</h3>

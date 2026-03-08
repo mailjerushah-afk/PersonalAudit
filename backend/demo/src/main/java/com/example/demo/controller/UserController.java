@@ -21,6 +21,10 @@ public class UserController {
     @PostMapping
     public User createUser(@RequestBody User user) {
 
+        if (user.getPassword() == null || user.getPassword().isBlank()) {
+            throw new IllegalArgumentException("Password cannot be empty");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
 

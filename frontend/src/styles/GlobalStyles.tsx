@@ -1,12 +1,14 @@
 import React from "react";
 
 export const styles = {
-  page: {
-    display: "flex",
-    minHeight: "100vh",
-    width: "100%",
-    fontFamily: "Arial, sans-serif",
-  } as React.CSSProperties,
+    page: {
+        minHeight: "100vh",
+        width: "100%",
+        backgroundColor: "#f7f9fc",
+        fontFamily: "Arial, sans-serif",
+        padding: "40px",
+        boxSizing: "border-box"
+    } as React.CSSProperties,
 
   leftPanel: {
     flex: 1,
@@ -107,11 +109,15 @@ export const styles = {
     gap: "6px",
     boxShadow: "0 5px 12px rgba(0,0,0,0.05)",
   } as React.CSSProperties,
-   container: {
+
+container: {
   width: "100%",
+  maxWidth: "1400px",
+  margin: "0 auto",
   backgroundColor: "white",
   padding: "40px",
   borderRadius: "20px",
+  boxShadow: "0 15px 40px rgba(0,0,0,0.08)"
 } as React.CSSProperties,
 
   header: {
@@ -130,10 +136,10 @@ export const styles = {
     cursor: "pointer",
   } as React.CSSProperties,
 
-  sectionTitle: {
-    marginBottom: "100px",
-    color: "#444",
-  } as React.CSSProperties,
+sectionTitle: {
+  marginBottom: "20px",
+  color: "#444",
+} as React.CSSProperties,
 
   table: {
     width: "100%",
