@@ -21,6 +21,9 @@ public class Transaction {
 
     private String description;
 
+    @Column(nullable = false)
+    private String category;
+
     private LocalDateTime timestamp;
 
     @ManyToOne(optional = true)
@@ -33,6 +36,8 @@ public class Transaction {
     public String getDescription() { return description; }
     public LocalDateTime getTimestamp() { return timestamp; }
     public User getUser() { return user; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
     public void setAmount(BigDecimal amount) { this.amount = amount; }
     public void setDescription(String description) { this.description = description; }
