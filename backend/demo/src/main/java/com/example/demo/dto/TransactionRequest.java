@@ -14,5 +14,7 @@ public record TransactionRequest(
         @PositiveOrZero
         BigDecimal amount,
 
-        String description
+        String description,
+        @NotNull
+        String category
 ) {}
