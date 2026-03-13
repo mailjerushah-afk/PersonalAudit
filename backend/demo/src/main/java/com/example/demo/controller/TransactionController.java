@@ -18,7 +18,7 @@ public class TransactionController {
 
     @GetMapping("/{userId}/balance")
     public BigDecimal getBalance(@PathVariable Long userId) {
-        return transactionRepository.findByUserId(userId)
+        return transactionRepository.findByUser_Id(userId)
                 .stream()
                 .map(Transaction::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -29,7 +29,7 @@ public class TransactionController {
     }
     @GetMapping("/{userId}")
     public List<Transaction> getUserTransactions(@PathVariable Long userId) {
-        return transactionRepository.findByUserId(userId);
+        return transactionRepository.findByUser_Id(userId);
     }
     @PostMapping
     public Transaction createTransaction(@RequestBody Transaction transaction) {

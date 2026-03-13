@@ -28,6 +28,18 @@ public class BudgetController {
         return budgetRepository.save(budget);
     }
 
+    @PutMapping("/{budgetId}")
+    public Budget updateBudget(@PathVariable Long budgetId, @RequestBody Budget updatedBudget) {
+
+        Budget budget = budgetRepository.findById(budgetId)
+                .orElseThrow(() -> new RuntimeException("Budget not found"));
+
+        budget.setCategory(updatedBudget.getCategory());
+        budget.setMonthlyLimit(updatedBudget.getMonthlyLimit());
+
+        return budgetRepository.save(budget);
+    }
+
     @GetMapping("/{userId}/status")
     public List<BudgetStatus> getBudgetStatus(@PathVariable Long userId) {
 
@@ -36,10 +48,10 @@ public class BudgetController {
                 .map(budget -> {
 
                     double spent = transactionRepository
-                            .findByUserId(userId)
+                            .findByUser_Id(userId)
                             .stream()
                             .filter(t -> budget.getCategory().equals(t.getCategory()))
-                            .mapToDouble((t -> t.getAmount().doubleValue()))
+                            .mapToDouble(t -> t.getAmount().doubleValue())
                             .sum();
 
                     BudgetStatus status = new BudgetStatus();
@@ -52,5 +64,9 @@ public class BudgetController {
 
                 })
                 .collect(Collectors.toList());
+    }
+    @DeleteMapping("/{budgetId}")
+    public void deleteBudget(@PathVariable Long budgetId) {
+        budgetRepository.deleteById(budgetId);
     }
 }

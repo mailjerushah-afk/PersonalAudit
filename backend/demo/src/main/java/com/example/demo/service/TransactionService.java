@@ -35,6 +35,7 @@ public class TransactionService {
         transaction.setDescription(request.description());
         transaction.setTimestamp(LocalDateTime.now());
         transaction.setUser(user);
+        transaction.setCategory(request.category());
 
         Transaction saved = transactionRepository.save(transaction);
 
@@ -48,7 +49,7 @@ public class TransactionService {
 
     public BigDecimal calculateBalance(Long userId) {
 
-        return transactionRepository.findByUserId(userId)
+        return transactionRepository.findByUser_Id(userId)
                 .stream()
                 .map(Transaction::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -56,7 +57,7 @@ public class TransactionService {
 
     public List<TransactionResponse> getUserTransactions(Long userId) {
 
-        return transactionRepository.findByUserId(userId)
+        return transactionRepository.findByUser_Id(userId)
                 .stream()
                 .map(t -> new TransactionResponse(
                         t.getId(),
