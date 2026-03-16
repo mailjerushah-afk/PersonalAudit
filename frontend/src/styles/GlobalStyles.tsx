@@ -10,26 +10,28 @@ export const styles = {
         boxSizing: "border-box"
     } as React.CSSProperties,
 
-  leftPanel: {
-    flex: 1,
-    background: "linear-gradient(135deg, #0288d1, #26c6da)",
-    color: "white",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "60px",
-    textAlign: "center",
-  } as React.CSSProperties,
+leftPanel: {
+  flex: 1,
+  minHeight: "100vh",
+  background: "linear-gradient(135deg, #0288d1, #26c6da)",
+  color: "white",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "60px",
+  textAlign: "center"
+} as React.CSSProperties,
 
-  rightPanel: {
-    flex: 1,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f7f9fc",
-    padding: "40px",
-  } as React.CSSProperties,
+rightPanel: {
+  flex: 1,
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#f7f9fc",
+  padding: "40px"
+} as React.CSSProperties,
 
   card: {
     width: "100%",
@@ -99,6 +101,11 @@ export const styles = {
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "20px",
   } as React.CSSProperties,
+  grid:{
+display:"grid",
+gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",
+gap:"20px"
+} as React.CSSProperties,
 
   userCard: {
     padding: "20px",
@@ -135,6 +142,11 @@ container: {
     fontWeight: 600,
     cursor: "pointer",
   } as React.CSSProperties,
+  layout: {
+  display: "flex",
+  width: "100%",
+  minHeight: "100vh"
+} as React.CSSProperties,
 
 sectionTitle: {
   marginBottom: "20px",
@@ -154,6 +166,27 @@ sectionTitle: {
     color: "white",
     borderRadius: "6px",
     cursor: "pointer"
-  } as React.CSSProperties
+  } as React.CSSProperties,
+
+
+budgetCard:{
+border:"1px solid #ddd",
+padding:"15px",
+borderRadius:"8px",
+marginBottom:"20px"
+} as React.CSSProperties,
+
+progressBar:{
+height:"20px",
+background:"#eee",
+borderRadius:"5px",
+overflow:"hidden"
+} as React.CSSProperties,
+flexRow:{
+display:"flex",
+gap:"10px",
+flexWrap:"wrap"
+} as React.CSSProperties,
+  
 
 };
