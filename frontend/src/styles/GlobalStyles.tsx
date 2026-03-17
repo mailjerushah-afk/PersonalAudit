@@ -187,6 +187,56 @@ display:"flex",
 gap:"10px",
 flexWrap:"wrap"
 } as React.CSSProperties,
-  
+  dashboardGrid: {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
+  gap: "25px",
+  marginBottom: "30px"
+} as React.CSSProperties,
+
+dashboardCard: {
+  backgroundColor: "white",
+  padding: "25px",
+  borderRadius: "16px",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+} as React.CSSProperties,
+
+calendarCard: {
+  flex: 2,
+  background: "white",
+  padding: "25px",
+  borderRadius: "16px",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+  minWidth: "320px"
+} as React.CSSProperties,
+
+alertCard: {
+  flex: 1,
+  background: "linear-gradient(135deg, #0288d1, #26c6da)",
+  color: "white",
+  padding: "25px",
+  borderRadius: "16px",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+  minWidth: "280px"
+} as React.CSSProperties,
+
+alertItem: {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  background: "rgba(255,255,255,0.15)",
+  padding: "12px 16px",
+  borderRadius: "10px",
+  marginBottom: "12px",
+  backdropFilter: "blur(6px)"
+} as React.CSSProperties,
+
+amountTag: {
+  background: "white",
+  color: "#0288d1",
+  padding: "6px 10px",
+  borderRadius: "8px",
+  fontWeight: 600
+} as React.CSSProperties
 
 };
