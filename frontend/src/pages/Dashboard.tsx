@@ -1,116 +1,8 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import api from "../api/api";
-// import { styles } from "../styles/GlobalStyles";
-
-// import AccountSummary from "../components/AccountSummary";
-// import TransactionTable from "../components/TransactionTable";
-// import BudgetForm from "../components/BudgetForm";
-// import BudgetStatus from "../components/BudgetStatus";
-// import UserList from "../components/UserList";
-// import type { Transaction, BudgetStatus as BudgetStatusType} from "../types/Finance";
-// import type { User } from "../types/User";
-
-// // type Transaction = {
-// //   id:number
-// //   amount:number
-// //   description:string
-// //   timestamp:string
-// //   category?:string
-// // }
-
-// // type BudgetStatus = {
-// //   category:string
-// //   limit:number
-// //   spent:number
-// //   percentage:number
-// // }
-
-// export default function Dashboard(){
-
-//   const navigate = useNavigate()
-
-//   const [users,setUsers] = useState<User[]>([])
-//   const [transactions,setTransactions] = useState<Transaction[]>([])
-//   const [budgets,setBudgets] = useState<BudgetStatusType[]>([])
-
-//   const userId = 1
-
-//   const loadData = () => {
-
-//     api.get("/users")
-//       .then(res => setUsers(res.data))
-
-//     api.get(`/transactions/${userId}`)
-//       .then(res => setTransactions(res.data))
-
-//     api.get(`/budgets/${userId}/status`)
-//       .then(res => setBudgets(res.data))
-//   }
-
-//   useEffect(()=>{
-//     loadData()
-//   },[])
-
-//   const logout = () => {
-//     localStorage.removeItem("token")
-//     navigate("/")
-//   }
-
-//   return(
-
-//     <div style={styles.page}>
-
-//       <div style={styles.container}>
-
-//         <div style={styles.header}>
-
-//           <h1 style={styles.title}>
-//             Digital Ledger Dashboard
-//           </h1>
-
-//           <div>
-
-//             <button
-//               style={styles.button}
-//               onClick={()=>navigate("/calendar")}
-//             >
-//               Bills Calendar
-//             </button>
-
-//             <button
-//               style={styles.logoutButton}
-//               onClick={logout}
-//             >
-//               Logout
-//             </button>
-
-//           </div>
-
-//         </div>
-
-//         <AccountSummary transactions={transactions} />
-
-//         <TransactionTable transactions={transactions} />
-
-//         <BudgetForm reload={loadData} />
-
-//         <BudgetStatus budgets={budgets} />
-
-//         <UserList users={users} />
-
-//       </div>
-
-//     </div>
-
-//   )
-// }
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import { styles } from "../styles/GlobalStyles";
 
-import AccountSummary from "../components/AccountSummary";
 import TransactionTable from "../components/TransactionTable";
 import BudgetForm from "../components/BudgetForm";
 import BudgetStatus from "../components/BudgetStatus";
@@ -166,12 +58,6 @@ export default function Dashboard() {
             </button>
           </div>
         </div>
-
-        {/* Top Summary */}
-        <div style={styles.grid}>
-          <AccountSummary transactions={transactions} />
-        </div>
-
         {/* Middle Section */}
         <div style={styles.dashboardGrid}>
 
