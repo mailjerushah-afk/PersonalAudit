@@ -3,18 +3,22 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import BillCalendar from "./pages/BillCalendar";
-import "react-calendar/dist/Calendar.css";
 
 function App() {
   return (
-<BrowserRouter>
-  <Routes>
-    <Route path="/" element={<Login />} />
-    <Route path="/dashboard" element={<Dashboard />} />
-    <Route path="/register" element={<Register />} />
-    <Route path="/calendar" element={<BillCalendar />} />
-  </Routes>
-</BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<Login />} />
+
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/calendar" element={<BillCalendar />} />
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 

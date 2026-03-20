@@ -1,4 +1,4 @@
-import { Transaction } from "../types/Finance";
+import type { Transaction } from "../types/Finance";
 import { styles } from "../styles/GlobalStyles";
 
 type Props = {
