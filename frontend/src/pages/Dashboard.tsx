@@ -51,6 +51,13 @@ export default function Dashboard() {
             </button>
 
             <button
+                style={styles.secondaryButton}
+                onClick={() => navigate("/portfolio")}
+            >
+                📊 Portfolio
+            </button>
+
+            <button
               style={styles.logoutButton}
               onClick={logout}
             >
