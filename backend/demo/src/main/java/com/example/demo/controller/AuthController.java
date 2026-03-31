@@ -40,7 +40,7 @@ public String register(@RequestBody User request) {
     // hash password
     request.setPassword(passwordEncoder.encode(request.getPassword()));
 
-    // default role (if you have roles)
+    // default role to USER if not provided
     if (request.getRole() == null) {
         request.setRole("USER");
     }
