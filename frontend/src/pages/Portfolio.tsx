@@ -13,13 +13,46 @@ export default function Portfolio() {
   const navigate = useNavigate();
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
 
+  // NEW: form state
+  const [asset, setAsset] = useState("");
+  const [quantity, setQuantity] = useState<number>(0);
+  const [value, setValue] = useState<number>(0);
+
   const userId = 1;
 
-  useEffect(() => {
+ 
+
+  const fetchPortfolio = () => {
     api.get(`/portfolio/${userId}`)
       .then(res => setPortfolio(res.data))
       .catch(err => console.error(err));
+  };
+   useEffect(() => {
+    fetchPortfolio();
   }, []);
+
+  // NEW: Add asset function
+  const handleAddAsset = () => {
+    if (!asset || quantity <= 0 || value <= 0) {
+      alert("Please fill all fields correctly");
+      return;
+    }
+
+    const newAsset = {
+      asset,
+      quantity,
+      value
+    };
+
+    api.post(`/portfolio/${userId}`, newAsset)
+      .then(() => {
+        fetchPortfolio(); // refresh data
+        setAsset("");
+        setQuantity(0);
+        setValue(0);
+      })
+      .catch(err => console.error(err));
+  };
 
   const totalValue = portfolio.reduce((sum, item) => sum + item.value, 0);
 
@@ -44,6 +77,41 @@ export default function Portfolio() {
         {/* Summary */}
         <div style={styles.dashboardCard}>
           <h2>Total Value: ${totalValue.toFixed(2)}</h2>
+        </div>
+
+        {/* NEW: Add Asset Form */}
+        <div style={styles.dashboardCard}>
+          <h2 style={styles.sectionTitle}>Add Asset</h2>
+
+          <div style={styles.flexRow}>
+            <input
+              type="text"
+              placeholder="Asset (e.g. AAPL)"
+              value={asset}
+              onChange={(e) => setAsset(e.target.value)}
+            />
+
+            <input
+              type="number"
+              placeholder="Quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+
+            <input
+              type="number"
+              placeholder="Value ($)"
+              value={value}
+              onChange={(e) => setValue(Number(e.target.value))}
+            />
+
+            <button
+              style={styles.primaryButton}
+              onClick={handleAddAsset}
+            >
+              ➕ Add
+            </button>
+          </div>
         </div>
 
         {/* Portfolio Table */}
