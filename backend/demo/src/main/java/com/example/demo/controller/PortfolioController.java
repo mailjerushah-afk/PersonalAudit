@@ -1,25 +1,35 @@
-// @RestController
-// @RequestMapping("/api/portfolio")
-// @CrossOrigin(origins = "*") // or your frontend URL
-// public class PortfolioController {
+package com.example.demo.controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
-//     private final PortfolioService portfolioService;
+import com.example.demo.model.PortfolioItem;
+import com.example.demo.repository.PortfolioRepository;
+import com.example.demo.dto.PortfolioRequest;
+import com.example.demo.service.PortfolioService;
 
-//     public PortfolioController(PortfolioService portfolioService) {
-//         this.portfolioService = portfolioService;
-//     }
+import java.util.List;
+@RestController
+@RequestMapping("/api/portfolio")
+@CrossOrigin(origins = "*")
+public class PortfolioController {
 
-//     @PostMapping("/{userId}")
-//     public ResponseEntity<?> addAsset(
-//             @PathVariable Long userId,
-//             @RequestBody PortfolioRequest request
-//     ) {
-//         portfolioService.addAsset(userId, request);
-//         return ResponseEntity.ok().build();
-//     }
+    private final PortfolioService portfolioService;
 
-//     @GetMapping("/{userId}")
-//     public List<PortfolioItem> getPortfolio(@PathVariable Long userId) {
-//         return portfolioService.getPortfolio(userId);
-//     }
-// }
+    public PortfolioController(PortfolioService portfolioService) {
+        this.portfolioService = portfolioService;
+    }
+
+    @PostMapping("/{userId}")
+    public ResponseEntity<?> addAsset(
+            @PathVariable Long userId,
+            @RequestBody PortfolioRequest request
+    ) {
+        portfolioService.addAsset(userId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{userId}")
+    public List<PortfolioItem> getPortfolio(@PathVariable Long userId) {
+        return portfolioService.getPortfolio(userId);
+    }
+}
