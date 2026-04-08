@@ -37,10 +37,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/budgets/**").permitAll() // public for now
-                .requestMatchers("/api/portfolio/**").permitAll() 
                 .anyRequest().authenticated()
-            )
+)
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
