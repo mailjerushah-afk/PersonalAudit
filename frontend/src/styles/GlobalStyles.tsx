@@ -67,7 +67,7 @@ rightPanel: {
   } as React.CSSProperties,
 
   secondaryButton: {
-    width: "100%",
+    width: "auto",
     padding: "12px",
     borderRadius: "10px",
     border: "2px solid #0288d1",
